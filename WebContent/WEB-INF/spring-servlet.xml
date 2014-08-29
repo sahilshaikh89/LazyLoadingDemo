@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+   <mvc:annotation-driven />
+   
+	<!-- =================LAZY LOADING STARTS================ -->
+	<context:component-scan base-package="com.lazyloading.tag.handler"></context:component-scan>	
+	
+	<!-- IN CASE COMPONENT SCAN DO NOT WORK -->
+	<bean id="cont" class="com.lazyloading.tag.handler.LazyHandler" />  
+	
+ 	<bean id="lazyApplicationContextAware" class="com.lazyloading.tag.context.LazyApplicationContextAware"></bean> 
+   	<bean id="util" class="com.lazyloading.tag.util.ProviderUtil"></bean> 
+   	<!-- =================LAZY LOADING ENDS================ -->
+   <context:component-scan base-package="com.lazyload.controller" />
+   	
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/jsp/" />
+      <property name="suffix" value=".jsp" />
+   </bean>
+   
+   <bean id="dataAccess" class="com.lazyload.dataaccess.DataAccess" />   
+  	
+  	  
+
+ </beans>
